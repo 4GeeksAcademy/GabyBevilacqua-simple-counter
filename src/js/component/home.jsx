@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import SecondsCounter from "./SecondsCounter";
-// import Buttons from "./Buttons";
+import Buttons from "./Buttons";
 
 
 const Home = () => {
 	const [seconds, setSeconds] = useState(0);
 	const [isRunning, setIsRunning] = useState(true);
 	const [reverse, setReverse] = useState(null);
-	const intervalRef = useRef(null);   //
+	const intervalRef = useRef(null);   
 
 	// Función para convertir segundos en 6 dígitos
 	const formatDigits = (num) => {
@@ -16,7 +16,7 @@ const Home = () => {
 	};
 
 	// Iniciar el contador
-	useEffect(() => {
+	useEffect(() => {                                    // aqui sucede la magia 
 		if (isRunning) {
 			intervalRef.current = setInterval(() => {
 				setSeconds(prev => {
@@ -34,7 +34,7 @@ const Home = () => {
 				})
 			}, 1000);
 
-			/*setInterval(() => {   esto no funcionaba porque se daba un bucle infinito entre 0 y 1 cuando se usa en input de reverse
+			/* = setInterval(() => {   esto no funcionaba porque se daba un bucle infinito entre 0 y 1 cuando se usa en input de reverse
 				setSeconds((prev) => (reverse !== null && prev > 0 ? prev - 1 : prev + 1));
 			}, 1000);*/
 		}
@@ -48,7 +48,7 @@ const Home = () => {
 			setIsRunning(true);    // true es su valor inicial para que arranque el contador
 			setSeconds(0);         // 0 porque empieza el contador en 0 cuando damos reiniciar
 			setReverse(null);       // null porque el sentido reverse no debe funcionar
-			
+
 		} else {                      // else (y sino) para colocar como funciona cuando hay algo en el contador
 			setSeconds(reverse);      // reverse para que tome el input que coloca el usuario
 			setReverse(reverse);      // reverse para que desde ese input empiece a contar
@@ -83,29 +83,12 @@ const Home = () => {
 			<div className="cardsContainer">
 				<SecondsCounter digits={formatDigits(seconds)} />
 			</div>
-
 			<div className="button text-center mt-4">
-				<button
-					id="btn-reset"
-					className="btn btn-secondary mb-2 me-2 border border-light"
-					onClick={handleReset}
-				>
-					Reiniciar
-				</button>
-				<button
-					id="btn-stop"
-					className="btn btn-secondary mb-2 me-2 border border-light"
-					onClick={handleStop}
-				>
-					Parar
-				</button>
-				<button
-					id="btn-resume"
-					className="btn btn-secondary mb-2 border border-light"
-					onClick={handleResume}
-				>
-					Resumir
-				</button>
+				<Buttons
+					handleReset={handleReset}
+					handleStop={handleStop}
+					handleResume={handleResume}					
+				/>
 				<div className="mt-2">
 					<label htmlFor="reverse" className="text-light me-2">Cuenta regresiva:</label>
 					<input
@@ -124,3 +107,30 @@ const Home = () => {
 export default Home;
 
 
+/*    asi era el codigo solo para que funcionara el contaror hacia adelante
+
+const Home = () => {
+	const [seconds, setSeconds] = useState(0)
+
+	const formatDigits = (num) => {
+		const str = num.toString().padStart(6, "0");
+		return str.split("");
+	};
+	
+	useEffect(() => {	
+
+		setInterval(() => {
+			setSeconds (prev => prev + 1 )
+		
+		}, 1000);
+		
+		} , [])
+
+		return (
+			<div className = "text-center">
+				<SecondsCounter digits= {seconds} />
+			</div>
+		)
+	
+	}
+*/

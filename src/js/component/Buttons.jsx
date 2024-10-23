@@ -1,4 +1,4 @@
-/*import React from "react";
+import React from "react";
 
 const Buttons = ({ handleReset, handleStop, handleResume }) => {
     return (
@@ -28,6 +28,4 @@ const Buttons = ({ handleReset, handleStop, handleResume }) => {
     );
   };
 
-
-
-export default Buttons; */
+export default Buttons; 
